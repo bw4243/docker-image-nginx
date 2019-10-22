@@ -1,0 +1,17 @@
+pipeline:
+  build-nginx:
+    image: plugins/docker
+    repo: ${REGISTRY_DOMAIN}/hangjia/nginx
+    registry: ${REGISTRY_DOMAIN}
+    dockerfile: ${NGINX_VERSION}/nginx/Dockerfile
+    context: ${NGINX_VERSION}/nginx
+    secrets: [ docker_username, docker_password ]
+    tag: ${NGINX_VERSION}
+    build_args:
+      - NGINX_VERSION=${NGINX_VERSION}
+
+matrix:
+  NGINX_VERSION:
+    - 1.15.3
+  REGISTRY_DOMAIN:
+    - registry.cn-hangzhou.aliyuncs.com
